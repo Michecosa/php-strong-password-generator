@@ -1,5 +1,15 @@
 <?php
+session_start();
 require_once "./functions.php";
+
+if (isset($_GET['password_length']) && !empty($_GET['password_length'])) {
+  $len = intval($_GET['password_length']);
+
+  $_SESSION['generated_password'] = rand_password($len);
+
+  header('Location: ./result.php');
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,11 +36,6 @@ require_once "./functions.php";
       required>
 
     <button type="submit">Invia</button>
-    <?php
-    if (!empty($_GET['password_length'])) {
-      echo rand_password($_GET['password_length']);
-    }
-    ?>
   </form>
 </body>
 
